@@ -30,10 +30,10 @@ l.ListName,
 de.SubscriberKey,
 l.[Status]
 from [<DE_Name>] de
-join [_listsubscribers] l
-on de.SubscriberKey = l.SubscriberKey
-where
-l.ListName = '<List Name>'
+    join [_listsubscribers] l
+    on de.SubscriberKey = l.SubscriberKey
+        where
+        l.ListName = '<List Name>'
 ```
 
 
@@ -53,8 +53,8 @@ l.ListType,
 l. [Status],
 l.CreatedDate as DateAdded,
 l.DateUnsubscribed
-from [_ListSubscribers] l
-where ListName = '<List Name>'
+    from [_ListSubscribers] l
+        where ListName = '<List Name>'
 ```
 
 
@@ -71,10 +71,9 @@ Select
     l.ListID,
     l.ListName,
     l.CreatedDate as DateAdded
-    from [_ListSubscribers] l
-    where
-    l.ListID = <ListID>
-    and CreatedDate between '2015-11-01' and '2015-12-01'
+        from [_ListSubscribers] l
+            where
+             l.ListID = <ListID> and CreatedDate between '2015-11-01' and '2015-12-01'
 ```
 
 # Query: Find Subscribers with No Opens or Clicks
@@ -89,14 +88,14 @@ s.SubscriberKey,
 s.JobID,
 s.BatchID,
 convert(char(19),s.EventDate,20) as SendDate
-from [_sent] s
-left join [_open] o
-on s.JobID = o.JobID and s.ListID = o.ListID and s.BatchID = o.BatchID and s.SubscriberID = o.SubscriberID and o.IsUnique = 1
-left join [_click] c
-on s.JobID = c.JobID and s.ListID = c.ListID and s.BatchID = c.BatchID and s.SubscriberID = c.SubscriberID and c.IsUnique = 1
-where
-s.JobID = JobID
-and (o.SubscriberID is NULL and c.SubscriberID is NULL)
+    from [_sent] s
+    left join [_open] o
+    on s.JobID = o.JobID and s.ListID = o.ListID and s.BatchID = o.BatchID and s.SubscriberID = o.SubscriberID and o.IsUnique = 1
+    left join [_click] c
+    on s.JobID = c.JobID and s.ListID = c.ListID and s.BatchID = c.BatchID and s.SubscriberID = c.SubscriberID and c.IsUnique = 1
+        where
+        s.JobID = JobID
+        and (o.SubscriberID is NULL and c.SubscriberID is NULL)
 ```
 Considerations
 This query runs well for jobs under 500,000 subscribers. For larger jobs, consider using Intermediate Tables to ensure optimal query performance.
@@ -114,9 +113,9 @@ s.JobID,
 s.Domain,
 count (s.SubscriberID) as SendCount
 from [_Sent] s
-where 
-s.JobID = <JobID>
-group by s.JobID, s.Domain
+    where 
+    s.JobID = <JobID>
+    group by s.JobID, s.Domain
 ```
 
 # Query: Journey Builder Bounced Email Messages
@@ -145,24 +144,24 @@ cpd.State,
 cpd.Zip,
 cpd.HomePhone,
 cpd.MobileNumber 
-from [_Sent] s
-join [_JourneyActivity] ja 
-on s.TriggererSendDefinitionObjectID = ja.JourneyActivityObjectID
-join [_Journey] j
-on ja.VersionID = j.VersionID
-join [_Bounce] b
-on s.JobID = b.JobID
-and s.ListID = b.ListID
-and s.BatchID = b.BatchID
-and s.SubscriberID = b.SubscriberID
-join [_Subscribers] su
-on s.SubscriberID = su.SubscriberID
-join ContactProfileData cpd
-on s.SubscriberKey = cpd.ContactKey
-where ja.ActivityType in ('EMAIL','EMAILV2')
-and j.JourneyName = <JourneyName>
-and s.EventDate < cast(cast(dateadd(hh,-72,getdate()) as date) as datetime)
-and b.SubscriberID is not null
+    from [_Sent] s
+    join [_JourneyActivity] ja 
+    on s.TriggererSendDefinitionObjectID = ja.JourneyActivityObjectID
+    join [_Journey] j
+    on ja.VersionID = j.VersionID
+    join [_Bounce] b
+    on s.JobID = b.JobID
+    and s.ListID = b.ListID
+    and s.BatchID = b.BatchID
+    and s.SubscriberID = b.SubscriberID
+    join [_Subscribers] su
+    on s.SubscriberID = su.SubscriberID
+    join ContactProfileData cpd
+    on s.SubscriberKey = cpd.ContactKey
+        where ja.ActivityType in ('EMAIL','EMAILV2')
+        and j.JourneyName = <JourneyName>
+        and s.EventDate < cast(cast(dateadd(hh,-72,getdate()) as date) as datetime)
+        and b.SubscriberID is not null
 
 ```
 
@@ -184,10 +183,10 @@ join [_Journey] j
 on ja.VersionID = j.VersionID
 join [_Subscribers] su
 on s.SubscriberID = su.SubscriberID
-where ja.ActivityType in  ('EMAIL','EMAILV2')
-and j.JourneyName = <JourneyName>
-and s.EventDate > dateadd(dd,-7,getdate())
-group by j.JourneyName,j.JourneyID,cast(s.EventDate as date),ja.ActivityName,ja.ActivityExternalKey
+    where ja.ActivityType in  ('EMAIL','EMAILV2')
+    and j.JourneyName = <JourneyName>
+    and s.EventDate > dateadd(dd,-7,getdate())
+      group by j.JourneyName,j.JourneyID,cast(s.EventDate as date),ja.ActivityName,ja.ActivityExternalKey
 
 ```
 
@@ -208,16 +207,16 @@ s.SubscriberID as 'ContactID'    ,
 s.JobID,
 s.ListID,
 s.BatchID
-from [_Sent] s
-join [_JourneyActivity] ja 
-on s.TriggererSendDefinitionObjectID = ja.JourneyActivityObjectID
-join [_Journey] j
-on ja.VersionID = j.VersionID
-join [_Subscribers] su
-on s.SubscriberID = su.SubscriberID
-where ja.ActivityType in  ('EMAIL','EMAILV2')
-and j.JourneyName = <JourneyName>
-and s.EventDate > dateadd(hh,-24,getdate())
+    from [_Sent] s
+    join [_JourneyActivity] ja 
+    on s.TriggererSendDefinitionObjectID = ja.JourneyActivityObjectID
+    join [_Journey] j
+    on ja.VersionID = j.VersionID
+    join [_Subscribers] su
+    on s.SubscriberID = su.SubscriberID
+        where ja.ActivityType in  ('EMAIL','EMAILV2')
+        and j.JourneyName = <JourneyName>
+        and s.EventDate > dateadd(hh,-24,getdate())
 ```
 
 #
