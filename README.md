@@ -1,5 +1,4 @@
-# Query: Opens in Last 30 Days
-Write a query to find subscribers who opened emails sent from the Marketing Cloud in the previous 30 days.
+## Write a query to find subscribers who opened emails sent from the Marketing Cloud in the previous 30 days.
 
 This query finds subscribers who opened an email in the last 30 days, regardless of how many sending jobs used that EmailID. Setting up this query starts with creating a target data extension to store the query's data output. Then, create the query, selecting the data extension you created as the target data extension.
 
@@ -19,7 +18,7 @@ s.SubscriberKey
         o.EventDate > dateadd(d,-30,getdate()) and
         j.EmailID = <EmailID> 
 ```
-# Query: Find Subscriber Status
+## Query: Find Subscriber Status
 
 Write a query using Automation Studio’s query activity to retrieve subscribers' statuses.
 
@@ -37,7 +36,7 @@ from [<DE_Name>] de
 ```
 
 
-# Query: Find Subscribers in a Publication or Suppression List
+## Query: Find Subscribers in a Publication or Suppression List
 
 Considerations
 
@@ -58,7 +57,7 @@ l.DateUnsubscribed
 ```
 
 
-# Query: Find Subscribers by Date or Time Frame
+## Query: Find Subscribers by Date or Time Frame
 
 Write a query using Automation Studio’s query activity to find subscribers according to the date or time frame.
 
@@ -76,7 +75,7 @@ Select
              l.ListID = <ListID> and CreatedDate between '2015-11-01' and '2015-12-01'
 ```
 
-# Query: Find Subscribers with No Opens or Clicks
+## Query: Find Subscribers with No Opens or Clicks
 
 Write a query using Automation Studio’s query activity to find subscribers who have no opened or clicked within a Marketing Cloud email.
 
@@ -101,7 +100,7 @@ Considerations
 This query runs well for jobs under 500,000 subscribers. For larger jobs, consider using Intermediate Tables to ensure optimal query performance.
 
 
-# Query: Find Top Bounces for a Job
+## Query: Find Top Bounces for a Job
 Write a query using Automation Studio’s query activity to find the top bounces by percentage.
 
 This query shows the top 25 bounces, as a percentage, for a particular job. Setting up this query starts with creating a target data extension to store the query's data output. Then, create the query, selecting the data extension you created as the target data extension. This complex query uses multiple queries and intermediate data extensions. This query runs optimally for jobs that include fewer than 5,000,000 subscribers.
@@ -118,7 +117,7 @@ from [_Sent] s
     group by s.JobID, s.Domain
 ```
 
-# Query: Journey Builder Bounced Email Messages
+## Query: Journey Builder Bounced Email Messages
 Create a list of contacts to send a direct mailer to based on bounced email messages from Journey Builder.
 
 Use this query to create a list of contacts based on bounced email messages.
