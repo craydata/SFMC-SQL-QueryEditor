@@ -1,4 +1,4 @@
-## Write a query to find subscribers who opened emails sent from the Marketing Cloud in the previous 30 days.
+## Query subscribers who opened emails sent from the Marketing Cloud in the previous 30 days.
 
 This query finds subscribers who opened an email in the last 30 days, regardless of how many sending jobs used that EmailID. Setting up this query starts with creating a target data extension to store the query's data output. Then, create the query, selecting the data extension you created as the target data extension.
 
@@ -20,7 +20,7 @@ s.SubscriberKey
 ```
 ## Query: Find Subscriber Status
 
-Write a query using Automation Studio’s query activity to retrieve subscribers' statuses.
+Retrieve subscribers' statuses.
 
 Use this query to return subscribers in a data extension and their status for a specified list or the All Subscribers list. Setting up this query starts with creating a target data extension to store the query's data output. Then, create the query, selecting the data extension you created as the target data extension.
 ```
@@ -36,7 +36,7 @@ from [<DE_Name>] de
 ```
 
 
-## Query: Find Subscribers in a Publication or Suppression List
+## Query: Query Subscribers in a Publication or Suppression List
 
 Considerations
 
@@ -57,7 +57,7 @@ l.DateUnsubscribed
 ```
 
 
-## Query: Find Subscribers by Date or Time Frame
+## Query Subscribers by Date or Time Frame
 
 Write a query using Automation Studio’s query activity to find subscribers according to the date or time frame.
 
@@ -75,9 +75,7 @@ Select
              l.ListID = <ListID> and CreatedDate between '2015-11-01' and '2015-12-01'
 ```
 
-## Query: Find Subscribers with No Opens or Clicks
-
-Write a query using Automation Studio’s query activity to find subscribers who have no opened or clicked within a Marketing Cloud email.
+## Query Subscribers with No Opens or Clicks
 
 This query's results show all subscribers that were sent a job, but did not click or open the email tied to a particular JobID. Setting up this query starts with creating a target data extension to store the query's data output. Then, create the query, selecting the data extension you created as the target data extension.
 
@@ -100,7 +98,7 @@ Considerations
 This query runs well for jobs under 500,000 subscribers. For larger jobs, consider using Intermediate Tables to ensure optimal query performance.
 
 
-## Query: Find Top Bounces for a Job
+## Query Top Bounces for a Job
 Write a query using Automation Studio’s query activity to find the top bounces by percentage.
 
 This query shows the top 25 bounces, as a percentage, for a particular job. Setting up this query starts with creating a target data extension to store the query's data output. Then, create the query, selecting the data extension you created as the target data extension. This complex query uses multiple queries and intermediate data extensions. This query runs optimally for jobs that include fewer than 5,000,000 subscribers.
@@ -189,7 +187,7 @@ on s.SubscriberID = su.SubscriberID
 
 ```
 
-# Query: Journey Builder Sends in Last 24 Hours
+# Query Journey Builder Sends in Last 24 Hours
 Find subscribers who were sent an email from a specified journey in Journey Builder within the last 24 hours.
 
 Use this query to find subscribers who were sent an email from a specified journey within the last 24 hours.
